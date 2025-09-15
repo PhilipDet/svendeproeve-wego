@@ -31,10 +31,10 @@ export const SignupForm = ({
                     if (result.status === 200) {
                         toast.success("Din konto er blevet oprettet!");
                         reset();
+                        setIsOpen(false);
                     } else {
                         toast.error(result.message);
                     }
-                    setIsOpen(false);
                 })}
                 className="flex-1 flex flex-col gap-4 justify-center"
             >

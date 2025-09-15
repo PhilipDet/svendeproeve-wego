@@ -44,3 +44,34 @@ export const formatDate = (date: string) => {
 
     return `${day}. ${months[month]} ${year} kl. ${formattedHours}:${formattedMinutes}`;
 };
+
+export const tripFormattedDate = (dateString: string) => {
+    if (!dateString) return "Ugyldig dato";
+
+    const date = new Date(dateString);
+    const today = new Date();
+    const isToday =
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear();
+
+    const isTomorrow =
+        date.getDate() === today.getDate() + 1 &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear();
+
+    const minutes =
+        date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+
+    const showTime = `${date.getHours()}:${minutes}`;
+    const showDate = `${date.getDate()} ${months[date.getMonth()].slice(0, 3)}`;
+
+    if (isToday) {
+        return `I dag ${showTime}`;
+    }
+    if (isTomorrow) {
+        return `I morgen ${showTime}`;
+    }
+
+    return `${showDate} ${showTime}`;
+};

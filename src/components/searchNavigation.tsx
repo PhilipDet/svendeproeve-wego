@@ -6,7 +6,7 @@ export const SearchNavigation = () => {
         useFilter();
 
     return (
-        <main className="w-full bg-white border-y-1 border-gray-300 search-navigation-shadow flex justify-center">
+        <main className="w-full bg-white border-y-1 border-gray-300 drop-shadow flex justify-center">
             <form
                 onSubmit={() => {}}
                 className="max-w-3xl w-full flex justify-center gap-3 m-3"

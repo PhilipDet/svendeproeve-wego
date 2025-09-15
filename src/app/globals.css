@@ -90,8 +90,18 @@
         @apply text-blue hover:text-dark-blue hover:underline transition duration-200;
     }
 
-    .search-navigation-shadow {
+    .drop-shadow {
         box-shadow: 0px 4px 4px 0px #00000008;
+    }
+
+    .full-star {
+        fill: #f3cc0b;
+        stroke: none;
+    }
+
+    .half-star {
+        fill: #dfe4e7;
+        stroke: none;
     }
 }
 

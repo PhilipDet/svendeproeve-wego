@@ -31,11 +31,10 @@ export const LoginForm = ({
                     if (result.status === 200) {
                         toast.success("Du er logget ind!");
                         reset();
+                        setIsOpen(false);
                     } else {
                         toast.error(result.message);
                     }
-
-                    setIsOpen(false);
                 })}
                 className="flex-1 flex flex-col gap-4 max-w-sm w-full"
             >
