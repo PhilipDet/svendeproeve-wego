@@ -45,7 +45,7 @@ export const formatDate = (date: string) => {
     return `${day}. ${months[month]} ${year} kl. ${formattedHours}:${formattedMinutes}`;
 };
 
-export const tripFormattedDate = (dateString: string) => {
+export const tripFormattedDate = (dateString?: string) => {
     if (!dateString) return "Ugyldig dato";
 
     const date = new Date(dateString);

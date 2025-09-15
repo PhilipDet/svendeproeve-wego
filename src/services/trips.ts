@@ -12,8 +12,8 @@ export const getTrips = async () => {
                 user: {
                     select: {
                         id: true,
-                        firstname: true,
-                        lastname: true,
+                        firstName: true,
+                        lastName: true,
                         imageUrl: true,
 
                         reviewsRecieved: {
@@ -37,7 +37,7 @@ export const getTrips = async () => {
 
         return results.map((trip) => ({
             id: trip.id,
-            user: trip.user,
+            user: { ...trip.user, imageUrl: trip.user.imageUrl ?? undefined },
             reviewsReceived: trip.user.reviewsRecieved.map(
                 (review) => review.numStars
             ),
@@ -50,13 +50,13 @@ export const getTrips = async () => {
             seatsTotal: trip.seatsTotal,
             pricePerSeat: trip.pricePerSeat.toNumber(),
             bagSizeId: trip.bagSizeId,
+            hasComfort: trip.hasComfort,
+            useFerry: trip.useFerry,
+            isElectric: trip.isElectric,
             allowChildren: trip.allowChildren,
             allowSmoking: trip.allowSmoking,
             allowMusic: trip.allowMusic,
             allowPets: trip.allowPets,
-            hasComfort: trip.hasComfort,
-            useFerry: trip.useFerry,
-            isElectric: trip.isElectric,
         }));
     } catch (error: unknown) {
         throw new Error(handlePrismaError(error)?.message || "Database error");

@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { getTrips } from "@/services/trips";
 import { getTrip } from "@/services/trips";
 import { handleError } from "@/lib/error";
+import { TripType } from "@/lib/types";
 
 export const useTrips = () => {
     const [loading, setLoading] = useState<boolean>(false);
-    const [trips, setTrips] = useState<any[]>([]);
+    const [trips, setTrips] = useState<TripType[]>([]);
 
     useEffect(() => {
         const fetchTrips = async () => {

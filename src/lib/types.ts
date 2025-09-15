@@ -1,8 +1,9 @@
 export type UserType = {
     id: number;
-    firstName?: string;
-    lastName?: string;
-    email: string;
+    firstName: string;
+    lastName: string;
+    email?: string;
+    imageUrl?: string;
     isActive?: boolean;
 } | null;
 
@@ -46,4 +47,24 @@ export type FilterContextType = {
     setKids: (kids: boolean) => void;
     smoking: boolean;
     setSmoking: (smoking: boolean) => void;
+};
+
+export type TripType = {
+    id: number;
+    user?: UserType;
+    reviewsReceived?: number[];
+    bookings?: number[];
+    departureDate: Date;
+    cityDeparture: string;
+    addressDeparture: string;
+    cityDestination: string;
+    addressDestination: string;
+    seatsTotal: number;
+    pricePerSeat: number;
+    useFerry: boolean;
+    isElectric: boolean;
+    allowChildren?: boolean;
+    allowSmoking?: boolean;
+    allowMusic?: boolean;
+    allowPets?: boolean;
 };
