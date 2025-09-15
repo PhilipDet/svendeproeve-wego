@@ -6,13 +6,38 @@ import { createContext, useContext, useState } from "react";
 const FilterContext = createContext<FilterContextType | null>(null);
 
 export const FilterProvider = ({ children }: { children: React.ReactNode }) => {
-    const [price, setPrice] = useState<number | null>(null);
+    const [locationFrom, setLocationFrom] = useState<string | null>(null);
+    const [locationTo, setLocationTo] = useState<string | null>(null);
+    const [seats, setSeats] = useState<number | null>(null);
+    const [luggageSize, setLuggageSize] = useState<string | null>(null);
+    const [comfort, setComfort] = useState<boolean>(false);
+
+    const [music, setMusic] = useState<boolean>(false);
+    const [animals, setAnimals] = useState<boolean>(false);
+    const [kids, setKids] = useState<boolean>(false);
+    const [smoking, setSmoking] = useState<boolean>(false);
 
     return (
         <FilterContext.Provider
             value={{
-                price,
-                setPrice,
+                locationFrom,
+                setLocationFrom,
+                locationTo,
+                setLocationTo,
+                seats,
+                setSeats,
+                luggageSize,
+                setLuggageSize,
+                comfort,
+                setComfort,
+                music,
+                setMusic,
+                animals,
+                setAnimals,
+                kids,
+                setKids,
+                smoking,
+                setSmoking,
             }}
         >
             {children}

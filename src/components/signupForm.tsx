@@ -6,11 +6,15 @@ import { InputField } from "@/components/inputField";
 import { handleFormError } from "@/lib/error";
 import { useAuth } from "@/context/authContext";
 import { SignupType } from "@/lib/types";
-import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { Container } from "@/components/container";
 
-const SignupPage = () => {
+export const SignupForm = ({
+    setIsSigningUp,
+    setIsOpen,
+}: {
+    setIsSigningUp: (isSigningUp: boolean) => void;
+    setIsOpen: (isOpen: boolean) => void;
+}) => {
     const {
         register,
         handleSubmit,
@@ -18,20 +22,19 @@ const SignupPage = () => {
         formState: { errors },
     } = useForm<SignupType>();
     const { signup } = useAuth();
-    const router = useRouter();
 
     return (
-        <Container>
+        <>
             <form
                 onSubmit={handleSubmit(async (data) => {
                     const result = await signup(data);
                     if (result.status === 200) {
                         toast.success("Din konto er blevet oprettet!");
                         reset();
-                        router.push("/dashboard");
                     } else {
                         toast.error(result.message);
                     }
+                    setIsOpen(false);
                 })}
                 className="flex-1 flex flex-col gap-4 justify-center"
             >
@@ -79,12 +82,13 @@ const SignupPage = () => {
                             : undefined
                     }
                 />
-                <button type="submit" className="btn place-self-end">
-                    Sign up
+                <button type="submit" className="btn">
+                    Opret
                 </button>
             </form>
-        </Container>
+            <button className="link" onClick={() => setIsSigningUp(false)}>
+                Gå til Login
+            </button>
+        </>
     );
 };
-
-export default SignupPage;

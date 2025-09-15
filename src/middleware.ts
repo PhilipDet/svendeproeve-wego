@@ -5,12 +5,6 @@ export function middleware(req: NextRequest) {
     const refreshToken = req.cookies.get("refreshToken")?.value;
     const { pathname } = req.nextUrl;
 
-    if (refreshToken && (pathname === "/login" || pathname === "/signup")) {
-        const url = req.nextUrl.clone();
-        url.pathname = "/dashboard";
-        return NextResponse.redirect(url);
-    }
-
     if (!refreshToken && pathname === "/dashboard") {
         const url = req.nextUrl.clone();
         url.pathname = "/login";
@@ -21,5 +15,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/login", "/signup", "/dashboard"],
+    matcher: ["/dashboard"],
 };

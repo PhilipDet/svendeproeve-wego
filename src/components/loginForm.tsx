@@ -6,11 +6,15 @@ import { InputField } from "@/components/inputField";
 import { handleFormError } from "@/lib/error";
 import { useAuth } from "@/context/authContext";
 import { LoginType } from "@/lib/types";
-import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { Container } from "@/components/container";
 
-const LoginPage = () => {
+export const LoginForm = ({
+    setIsSigningUp,
+    setIsOpen,
+}: {
+    setIsSigningUp: (isSigningUp: boolean) => void;
+    setIsOpen: (isOpen: boolean) => void;
+}) => {
     const {
         register,
         handleSubmit,
@@ -18,20 +22,20 @@ const LoginPage = () => {
         formState: { errors },
     } = useForm<LoginType>();
     const { login } = useAuth();
-    const router = useRouter();
 
     return (
-        <Container>
+        <>
             <form
                 onSubmit={handleSubmit(async (data) => {
                     const result = await login(data);
                     if (result.status === 200) {
                         toast.success("Du er logget ind!");
                         reset();
-                        router.push("/dashboard");
                     } else {
                         toast.error(result.message);
                     }
+
+                    setIsOpen(false);
                 })}
                 className="flex-1 flex flex-col gap-4 max-w-sm w-full"
             >
@@ -50,12 +54,13 @@ const LoginPage = () => {
                     type="password"
                     registration={register("password")}
                 />
-                <button type="submit" className="btn place-self-end">
+                <button type="submit" className="btn">
                     Login
                 </button>
             </form>
-        </Container>
+            <button className="link" onClick={() => setIsSigningUp(true)}>
+                Gå til Signup
+            </button>
+        </>
     );
 };
-
-export default LoginPage;

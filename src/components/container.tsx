@@ -8,13 +8,15 @@ export const Container = ({
     className?: string;
 }>) => {
     return (
-        <div
-            className={cn(
-                "flex-1 w-full flex flex-col items-center gap-4 py-8 px-6",
-                className
-            )}
-        >
-            {children}
+        <div className="w-full flex-1 flex justify-center py-5 px-6">
+            <div
+                className={cn(
+                    "max-w-3xl w-full flex flex-col items-center gap-4",
+                    className
+                )}
+            >
+                {children}
+            </div>
         </div>
     );
 };

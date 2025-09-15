@@ -28,6 +28,22 @@ export type AuthContextType = {
 };
 
 export type FilterContextType = {
-    price: number | null;
-    setPrice: (price: number | null) => void;
+    locationFrom: string | null;
+    setLocationFrom: (locationFrom: string | null) => void;
+    locationTo: string | null;
+    setLocationTo: (locationTo: string | null) => void;
+    seats: number | null;
+    setSeats: (seats: number | null) => void;
+    luggageSize: string | null;
+    setLuggageSize: (luggageSize: string | null) => void;
+    comfort: boolean;
+    setComfort: (comfort: boolean) => void;
+    music: boolean;
+    setMusic: (music: boolean) => void;
+    animals: boolean;
+    setAnimals: (animals: boolean) => void;
+    kids: boolean;
+    setKids: (kids: boolean) => void;
+    smoking: boolean;
+    setSmoking: (smoking: boolean) => void;
 };

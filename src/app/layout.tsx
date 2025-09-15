@@ -6,6 +6,7 @@ import { Providers } from "./provider";
 import { Navbar } from "@/components/navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ShowContent } from "@/components/showContent";
 
 const RootLayout = ({
     children,
@@ -18,7 +19,7 @@ const RootLayout = ({
                 <Providers>
                     <ToastContainer position="top-right" autoClose={3000} />
                     <Navbar />
-                    {children}
+                    <ShowContent>{children}</ShowContent>
                     <Footer />
                 </Providers>
             </body>

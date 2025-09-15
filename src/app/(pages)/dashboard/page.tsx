@@ -14,7 +14,9 @@ const DashboardPage = () => {
             ) : (
                 user && (
                     <>
-                        <span>Velkommen, {user?.email}</span>
+                        <span>
+                            Velkommen, {user.firstName} {user.lastName}
+                        </span>
                         <button onClick={logout} className="btn">
                             Logud
                         </button>
