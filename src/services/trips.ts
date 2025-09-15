@@ -69,7 +69,10 @@ export const getTrip = async (id: number) => {
             where: { id },
         });
         if (!result) throw new Error("Trip not found");
-        return { result };
+        return {
+            ...result,
+            pricePerSeat: result.pricePerSeat.toNumber(),
+        };
     } catch (error: unknown) {
         throw new Error(handlePrismaError(error)?.message || "Database error");
     }

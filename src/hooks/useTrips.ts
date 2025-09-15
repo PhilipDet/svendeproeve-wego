@@ -32,7 +32,7 @@ export const useTrips = () => {
 
 export const useTrip = (id: number) => {
     const [loading, setLoading] = useState<boolean>(true);
-    const [trip, setTrip] = useState<any>(null);
+    const [trip, setTrip] = useState<TripType | null>(null);
 
     useEffect(() => {
         const fetchTrip = async () => {
