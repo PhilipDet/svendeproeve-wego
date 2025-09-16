@@ -1,6 +1,12 @@
 import { Star } from "lucide-react";
 
-export const StarRating = ({ rating }: { rating: number[] }) => {
+export const StarRating = ({
+    rating,
+    size,
+}: {
+    rating: number[];
+    size: number;
+}) => {
     const calculateRating = (ratings: number[]) => {
         if (ratings.length === 0) return 0;
         const total = ratings.reduce((acc, rating) => acc + rating, 0);
@@ -13,10 +19,10 @@ export const StarRating = ({ rating }: { rating: number[] }) => {
     return (
         <div className="flex items-center">
             {Array.from({ length: fullStars }).map((_, index) => (
-                <Star key={index} size={16} className="full-star" />
+                <Star key={index} size={size} className="full-star" />
             ))}
             {Array.from({ length: emptyStars }).map((_, index) => (
-                <Star key={index} size={16} className="half-star" />
+                <Star key={index} size={size} className="half-star" />
             ))}
         </div>
     );

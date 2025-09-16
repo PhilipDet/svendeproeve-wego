@@ -45,6 +45,13 @@ export const formatDate = (date: string) => {
     return `${day}. ${months[month]} ${year} kl. ${formattedHours}:${formattedMinutes}`;
 };
 
+export const formatDateShort = (date: string) => {
+    const year = new Date(date).getFullYear();
+    const month = new Date(date).getMonth();
+
+    return `${months[month]} ${year}`;
+};
+
 export const tripFormattedDate = (dateString?: string) => {
     if (!dateString) return "Ugyldig dato";
 

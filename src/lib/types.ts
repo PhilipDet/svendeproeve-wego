@@ -3,8 +3,10 @@ export type UserType = {
     firstName: string;
     lastName: string;
     email?: string;
-    imageUrl?: string;
+    imageUrl: string;
     isActive?: boolean;
+    reviewsRecieved?: ReviewsReceived[];
+    createdAt?: Date;
 } | null;
 
 export type LoginType = {
@@ -69,4 +71,17 @@ export type TripType = {
     allowMusic?: boolean;
     allowPets?: boolean;
     hasComfort?: boolean;
+    comment?: string;
+    createdAt?: Date;
+};
+
+export type ReviewsReceived = {
+    numStars: number;
+    comment?: string;
+    createdAt?: Date;
+    reviewer?: {
+        firstName: string;
+        lastName: string;
+        imageUrl: string;
+    };
 };

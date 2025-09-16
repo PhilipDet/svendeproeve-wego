@@ -23,6 +23,7 @@ model User {
   imageUrl     String?
   refreshToken String
   isActive     Boolean @default(true) // -> Bool med default true
+  createdAt    DateTime @default(now()) // -> Dato med default nuværende tidspunkt
 
   reviewsWritten  Review[]  @relation("reviewsWritten")
   reviewsRecieved Review[]  @relation("reviewsRecieved")

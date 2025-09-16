@@ -37,7 +37,7 @@ export const getTrips = async () => {
 
         return results.map((trip) => ({
             id: trip.id,
-            user: { ...trip.user, imageUrl: trip.user.imageUrl ?? undefined },
+            user: { ...trip.user, imageUrl: trip.user.imageUrl ?? "" },
             reviewsReceived: trip.user.reviewsRecieved.map(
                 (review) => review.numStars
             ),
@@ -67,11 +67,66 @@ export const getTrip = async (id: number) => {
     try {
         const result = await prisma.trip.findUnique({
             where: { id },
+
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        firstName: true,
+                        lastName: true,
+                        imageUrl: true,
+                        createdAt: true,
+
+                        reviewsRecieved: {
+                            select: {
+                                numStars: true,
+                                comment: true,
+                                createdAt: true,
+
+                                reviewer: {
+                                    select: {
+                                        firstName: true,
+                                        lastName: true,
+                                        imageUrl: true,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
         });
         if (!result) throw new Error("Trip not found");
         return {
-            ...result,
+            id: result.id,
+            user: {
+                ...result.user,
+                imageUrl: result.user.imageUrl ?? "",
+                reviewsRecieved: result.user.reviewsRecieved.map((review) => ({
+                    ...review,
+                    createdAt: new Date(review.createdAt),
+                    reviewer: {
+                        ...review.reviewer,
+                        imageUrl: review.reviewer.imageUrl || "",
+                    },
+                })),
+            },
+            departureDate: result.departureDate,
+            cityDeparture: result.cityDeparture,
+            cityDestination: result.cityDestination,
+            addressDeparture: result.addressDeparture,
+            addressDestination: result.addressDestination,
+            seatsTotal: result.seatsTotal,
+            bagSizeId: result.bagSizeId,
             pricePerSeat: result.pricePerSeat.toNumber(),
+            comment: result.comment,
+            hasComfort: result.hasComfort,
+            useFerry: result.useFerry,
+            isElectric: result.isElectric,
+            allowChildren: result.allowChildren,
+            allowSmoking: result.allowSmoking,
+            allowMusic: result.allowMusic,
+            allowPets: result.allowPets,
         };
     } catch (error: unknown) {
         throw new Error(handlePrismaError(error)?.message || "Database error");

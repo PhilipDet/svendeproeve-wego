@@ -87,6 +87,7 @@ const LiftsPage = () => {
                                     <span>{trip.user?.firstName}</span>
                                     <StarRating
                                         rating={trip.reviewsReceived ?? []}
+                                        size={16}
                                     />
                                 </div>
 
