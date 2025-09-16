@@ -1,58 +1,43 @@
-import { MapPin, Target, ArrowLeftRight } from "lucide-react";
+"use client";
+
+import { ArrowLeftRight } from "lucide-react";
 import { useFilter } from "@/context/filterContext";
+import { useState } from "react";
+import { SearchInput } from "./searchInput";
+import { usePathname, useRouter } from "next/navigation";
 
 export const SearchNavigation = () => {
-    const { locationFrom, locationTo, setLocationFrom, setLocationTo } =
-        useFilter();
+    const { setLocationFrom, setLocationTo } = useFilter();
+
+    const pathName = usePathname();
+    const router = useRouter();
 
     return (
-        <main className="w-full bg-white border-y-1 border-gray-300 drop-shadow flex justify-center">
+        <main className="z-40 w-full bg-white border-y-1 border-gray-300 drop-shadow flex justify-center">
             <form
-                onSubmit={() => {}}
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    if (pathName !== "/lifts") router.push("/lifts");
+                }}
                 className="max-w-3xl w-full flex justify-center gap-3 m-3"
             >
-                <label
-                    htmlFor="locationFrom"
-                    className="max-w-[300px] w-full flex items-center gap-2 py-2.5 px-2 bg-white rounded-xl border-2 border-gray-300 cursor-text    "
-                >
-                    <Target size={16} className="text-light-blue" />
-                    <input
-                        type="text"
-                        placeholder="Hvor fra?"
-                        name="locationFrom"
-                        id="locationFrom"
-                        onChange={(e) => setLocationFrom(e.target.value)}
-                        value={locationFrom ?? undefined}
-                        className="text-sm w-full"
-                    />
-                </label>
+                <SearchInput
+                    isLocationFrom={true}
+                    changeSelectCity={setLocationFrom}
+                />
 
                 <button
+                    type="button"
                     onClick={() => {}}
-                    className="w-[47.2px] flex items-center justify-center bg-light-blue/20 text-light-blue rounded-xl"
+                    className="max-w-[47.2px] w-full flex items-center justify-center bg-light-blue/20 text-light-blue rounded-xl"
                 >
                     <ArrowLeftRight size={16} />
                 </button>
 
-                <label
-                    htmlFor="locationTo"
-                    className="max-w-[300px] w-full flex items-center gap-2 py-2.5 px-2 bg-white rounded-xl border-2 border-gray-300 cursor-text"
-                >
-                    <MapPin size={16} className="text-light-blue" />
-                    <input
-                        type="text"
-                        placeholder="Hvor til?"
-                        name="locationTo"
-                        id="locationTo"
-                        onChange={(e) => setLocationTo(e.target.value)}
-                        value={locationTo ?? undefined}
-                        className="text-sm w-full"
-                    />
-                </label>
-
-                <button type="submit" className="btn">
-                    Søg Lift
-                </button>
+                <SearchInput
+                    isLocationFrom={false}
+                    changeSelectCity={setLocationTo}
+                />
             </form>
         </main>
     );

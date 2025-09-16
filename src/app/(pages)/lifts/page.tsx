@@ -24,6 +24,7 @@ const LiftsPage = () => {
         animals,
         kids,
         smoking,
+        resetFilter,
     } = useFilter();
 
     const filteredTrips = useMemo(() => {
@@ -34,8 +35,14 @@ const LiftsPage = () => {
             const conditions = [
                 seats === null || availableSeats >= seats,
                 luggageSize === null || trip.bagSizeId === luggageSize,
-                locationFrom === null || trip.addressDeparture === locationFrom,
-                locationTo === null || trip.addressDestination === locationTo,
+                !locationFrom ||
+                    trip.cityDeparture
+                        .toLowerCase()
+                        .includes(locationFrom.toLowerCase()),
+                !locationTo ||
+                    trip.cityDestination
+                        .toLowerCase()
+                        .includes(locationTo.toLowerCase()),
                 !comfort || trip.hasComfort,
                 !music || trip.allowMusic,
                 !animals || trip.allowPets,
@@ -65,6 +72,17 @@ const LiftsPage = () => {
             <section className="w-full flex flex-col gap-4">
                 {loading ? (
                     <div>Henter ture...</div>
+                ) : filteredTrips.length <= 0 ? (
+                    <div className="h-full flex flex-col gap-2 bg-white rounded-2xl drop-shadow hover:bg-muted-background transition-colors duration-200 p-4">
+                        Der bliver ikke fundet nogen ture der matcher din
+                        søgning...
+                        <button
+                            className="btn place-self-start"
+                            onClick={resetFilter}
+                        >
+                            Nulstil Søgning
+                        </button>
+                    </div>
                 ) : (
                     filteredTrips.map((trip) => (
                         <Link

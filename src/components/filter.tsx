@@ -23,23 +23,14 @@ export const Filter = () => {
         setKids,
         smoking,
         setSmoking,
+        resetFilter,
     } = useFilter();
-
-    const resetForm = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setSeats(1);
-        setLuggageSize(null);
-        setComfort(false);
-        setMusic(false);
-        setAnimals(false);
-        setKids(false);
-        setSmoking(false);
-    };
 
     return (
         <form
             onSubmit={(e) => {
-                resetForm(e);
+                e.preventDefault();
+                resetFilter();
             }}
             className="max-w-40 w-full flex flex-col gap-3 bg-background p-3 rounded-2xl"
         >

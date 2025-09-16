@@ -17,6 +17,18 @@ export const FilterProvider = ({ children }: { children: React.ReactNode }) => {
     const [kids, setKids] = useState<boolean>(false);
     const [smoking, setSmoking] = useState<boolean>(false);
 
+    const resetFilter = () => {
+        setLocationFrom(null);
+        setLocationTo(null);
+        setSeats(1);
+        setLuggageSize(null);
+        setComfort(false);
+        setMusic(false);
+        setAnimals(false);
+        setKids(false);
+        setSmoking(false);
+    };
+
     return (
         <FilterContext.Provider
             value={{
@@ -38,6 +50,7 @@ export const FilterProvider = ({ children }: { children: React.ReactNode }) => {
                 setKids,
                 smoking,
                 setSmoking,
+                resetFilter,
             }}
         >
             {children}

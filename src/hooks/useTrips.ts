@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTrips } from "@/services/trips";
-import { getTrip } from "@/services/trips";
+import { getTrips, getTrip, getTripCities } from "@/services/trips";
 import { handleError } from "@/lib/error";
 import { TripType } from "@/lib/types";
 
@@ -36,6 +35,7 @@ export const useTrip = (id: number) => {
 
     useEffect(() => {
         const fetchTrip = async () => {
+            setLoading(true);
             try {
                 const response = await getTrip(id);
                 setTrip(response);
@@ -50,4 +50,32 @@ export const useTrip = (id: number) => {
     }, [id]);
 
     return { trip, loading };
+};
+
+export const useCities = () => {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [citiesDeparture, setCitiesDeparture] = useState<string[]>([]);
+    const [citiesDestination, setCitiesDestination] = useState<string[]>([]);
+
+    useEffect(() => {
+        const fetchCities = async () => {
+            setLoading(true);
+            try {
+                const response = await getTripCities();
+
+                if (!response) throw new Error("No cities found");
+
+                setCitiesDeparture(response.citiesDeparture);
+                setCitiesDestination(response.citiesDestination);
+            } catch (error) {
+                console.error("Error fetching cities:", handleError(error));
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCities();
+    }, []);
+
+    return { citiesDeparture, citiesDestination, loading };
 };

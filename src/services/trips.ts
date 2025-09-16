@@ -4,8 +4,6 @@ import { prisma } from "@/lib/prisma";
 import { handlePrismaError } from "@/lib/error";
 
 export const getTrips = async () => {
-    console.log("Getting trips from database...");
-
     try {
         const results = await prisma.trip.findMany({
             include: {
@@ -96,7 +94,9 @@ export const getTrip = async (id: number) => {
                 },
             },
         });
+
         if (!result) throw new Error("Trip not found");
+
         return {
             id: result.id,
             user: {
@@ -127,6 +127,26 @@ export const getTrip = async (id: number) => {
             allowSmoking: result.allowSmoking,
             allowMusic: result.allowMusic,
             allowPets: result.allowPets,
+        };
+    } catch (error: unknown) {
+        throw new Error(handlePrismaError(error)?.message || "Database error");
+    }
+};
+
+export const getTripCities = async () => {
+    try {
+        const results = await prisma.trip.findMany({
+            select: {
+                cityDeparture: true,
+                cityDestination: true,
+            },
+        });
+
+        if (!results) throw new Error("Trips not found");
+
+        return {
+            citiesDeparture: results.map((trip) => trip.cityDeparture),
+            citiesDestination: results.map((trip) => trip.cityDestination),
         };
     } catch (error: unknown) {
         throw new Error(handlePrismaError(error)?.message || "Database error");

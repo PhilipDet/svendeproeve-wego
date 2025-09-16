@@ -49,6 +49,7 @@ export type FilterContextType = {
     setKids: (kids: boolean) => void;
     smoking: boolean;
     setSmoking: (smoking: boolean) => void;
+    resetFilter: () => void;
 };
 
 export type TripType = {
