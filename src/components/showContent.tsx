@@ -5,7 +5,7 @@ import { SearchNavigation } from "./searchNavigation";
 
 export const ShowContent = ({ children }: { children: React.ReactNode }) => {
     const pathName = usePathname();
-    if (pathName === "/lifts" || pathName.startsWith("/lifts/"))
+    if (pathName === "/lifts")
         return (
             <>
                 <SearchNavigation />
