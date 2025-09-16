@@ -13,16 +13,17 @@ export const SearchNavigation = () => {
             >
                 <label
                     htmlFor="locationFrom"
-                    className="max-w-[300px] w-full flex items-center gap-2 py-2.5 px-2 bg-white rounded-xl border-2 border-gray-300"
+                    className="max-w-[300px] w-full flex items-center gap-2 py-2.5 px-2 bg-white rounded-xl border-2 border-gray-300 cursor-text    "
                 >
                     <Target size={16} className="text-light-blue" />
                     <input
                         type="text"
                         placeholder="Hvor fra?"
                         name="locationFrom"
+                        id="locationFrom"
                         onChange={(e) => setLocationFrom(e.target.value)}
                         value={locationFrom ?? undefined}
-                        className="text-sm"
+                        className="text-sm w-full"
                     />
                 </label>
 
@@ -35,16 +36,17 @@ export const SearchNavigation = () => {
 
                 <label
                     htmlFor="locationTo"
-                    className="max-w-[300px] w-full flex items-center gap-2 py-2.5 px-2 bg-white rounded-xl border-2 border-gray-300"
+                    className="max-w-[300px] w-full flex items-center gap-2 py-2.5 px-2 bg-white rounded-xl border-2 border-gray-300 cursor-text"
                 >
                     <MapPin size={16} className="text-light-blue" />
                     <input
                         type="text"
                         placeholder="Hvor til?"
                         name="locationTo"
+                        id="locationTo"
                         onChange={(e) => setLocationTo(e.target.value)}
                         value={locationTo ?? undefined}
-                        className="text-sm"
+                        className="text-sm w-full"
                     />
                 </label>
 

@@ -17,7 +17,7 @@ export const SigninModal = ({
         <>
             {isOpen && (
                 <main
-                    className="fixed inset-0 bg-black/50 flex items-center justify-center"
+                    className="z-50 fixed inset-0 bg-black/50 flex items-center justify-center"
                     onClick={(e) => {
                         if (e.target === e.currentTarget) {
                             setIsOpen(false);

@@ -33,10 +33,10 @@ export type FilterContextType = {
     setLocationFrom: (locationFrom: string | null) => void;
     locationTo: string | null;
     setLocationTo: (locationTo: string | null) => void;
-    seats: number | null;
-    setSeats: (seats: number | null) => void;
-    luggageSize: string | null;
-    setLuggageSize: (luggageSize: string | null) => void;
+    seats: number;
+    setSeats: (seats: number) => void;
+    luggageSize: number | null;
+    setLuggageSize: (luggageSize: number | null) => void;
     comfort: boolean;
     setComfort: (comfort: boolean) => void;
     music: boolean;
@@ -60,6 +60,7 @@ export type TripType = {
     cityDestination: string;
     addressDestination: string;
     seatsTotal: number;
+    bagSizeId: number;
     pricePerSeat: number;
     useFerry: boolean;
     isElectric: boolean;
@@ -67,4 +68,5 @@ export type TripType = {
     allowSmoking?: boolean;
     allowMusic?: boolean;
     allowPets?: boolean;
+    hasComfort?: boolean;
 };

@@ -8,8 +8,8 @@ const FilterContext = createContext<FilterContextType | null>(null);
 export const FilterProvider = ({ children }: { children: React.ReactNode }) => {
     const [locationFrom, setLocationFrom] = useState<string | null>(null);
     const [locationTo, setLocationTo] = useState<string | null>(null);
-    const [seats, setSeats] = useState<number | null>(null);
-    const [luggageSize, setLuggageSize] = useState<string | null>(null);
+    const [seats, setSeats] = useState<number>(1);
+    const [luggageSize, setLuggageSize] = useState<number | null>(null);
     const [comfort, setComfort] = useState<boolean>(false);
 
     const [music, setMusic] = useState<boolean>(false);
