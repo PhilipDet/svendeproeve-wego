@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { MapPin, Target } from "lucide-react";
-import { useCities } from "@/hooks/useTrips";
+import { useCities } from "@/hooks/useCities";
 import { useFilter } from "@/context/filterContext";
 
 export const SearchInput = ({

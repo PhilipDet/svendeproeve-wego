@@ -65,12 +65,12 @@ export const Navbar = () => {
                         {!loadingUser &&
                             (user ? (
                                 <>
-                                    <li>
+                                    <li className="pb-5">
                                         <span className="text-sm">
                                             {user.firstName} {user.lastName}
                                         </span>
                                     </li>
-                                    <li>
+                                    <li className="pb-5">
                                         <button
                                             onClick={logout}
                                             className="btn-secondary"
@@ -80,7 +80,7 @@ export const Navbar = () => {
                                     </li>
                                 </>
                             ) : (
-                                <li>
+                                <li className="pb-5">
                                     <button
                                         onClick={() => setIsLoginOpen(true)}
                                         className="btn-secondary"
