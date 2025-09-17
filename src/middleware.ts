@@ -5,9 +5,12 @@ export function middleware(req: NextRequest) {
     const refreshToken = req.cookies.get("refreshToken")?.value;
     const { pathname } = req.nextUrl;
 
-    if (!refreshToken && pathname === "/dashboard") {
+    if (
+        (!refreshToken && pathname === "/dashboard") ||
+        (!refreshToken && pathname.startsWith("/booking"))
+    ) {
         const url = req.nextUrl.clone();
-        url.pathname = "/login";
+        url.pathname = "/";
         return NextResponse.redirect(url);
     }
 
@@ -15,5 +18,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/dashboard"],
+    matcher: ["/dashboard", "/booking/:path*"],
 };

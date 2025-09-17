@@ -13,6 +13,7 @@ export const getBookings = async (tripId: number) => {
             include: {
                 user: {
                     select: {
+                        id: true,
                         firstName: true,
                         lastName: true,
                         imageUrl: true,
@@ -25,8 +26,35 @@ export const getBookings = async (tripId: number) => {
 
         return results;
     } catch (error: unknown) {
-        console.log(error);
-
         throw new Error(handlePrismaError(error)?.message || "Database error");
+    }
+};
+
+export const createBooking = async (data: {
+    numSeats: number;
+    message?: string;
+    userId: number;
+    tripId: number;
+}) => {
+    try {
+        const result = await prisma.booking.create({
+            data: {
+                numSeats: data.numSeats,
+                comment: data.message || "",
+                userId: data.userId,
+                tripId: data.tripId,
+            },
+        });
+
+        return {
+            status: 200,
+            message: "Booking created successfully",
+            data: result,
+        };
+    } catch (error: unknown) {
+        return {
+            status: 500,
+            message: handlePrismaError(error)?.message || "Database error",
+        };
     }
 };

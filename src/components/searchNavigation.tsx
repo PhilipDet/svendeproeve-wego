@@ -2,7 +2,6 @@
 
 import { ArrowLeftRight } from "lucide-react";
 import { useFilter } from "@/context/filterContext";
-import { useState } from "react";
 import { SearchInput } from "./searchInput";
 import { usePathname, useRouter } from "next/navigation";
 

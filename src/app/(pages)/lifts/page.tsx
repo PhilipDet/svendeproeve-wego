@@ -95,7 +95,7 @@ const LiftsPage = () => {
                                     <Image
                                         src={
                                             trip.user?.imageUrl ||
-                                            "/images/icons/user.svg"
+                                            "/images/user-placeholder.png"
                                         }
                                         alt={`Billede af ${trip.user?.firstName}`}
                                         width={66}

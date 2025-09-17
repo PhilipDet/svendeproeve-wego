@@ -77,12 +77,42 @@ export type TripType = {
 };
 
 export type ReviewsReceived = {
+    id: number;
     numStars: number;
     comment?: string;
     createdAt?: Date;
     reviewer?: {
+        id: number;
         firstName: string;
         lastName: string;
         imageUrl: string;
     };
+};
+
+export type BookingType = {
+    id: number;
+    tripId: number;
+    userId: number;
+    numSeats: number;
+    comment?: string;
+    createdAt?: Date;
+    user?: UserType;
+    trip?: TripType;
+};
+
+export type BookingFormType = {
+    numSeats: number;
+    message?: string;
+    cardNumber: string;
+    expiryDate: string;
+    cvv: string;
+    userId: number;
+    tripId: number;
+};
+
+export type ReviewFormType = {
+    numStars: number;
+    comment: string;
+    reviewerId: number;
+    reviewedUserId: number;
 };

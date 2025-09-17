@@ -16,6 +16,7 @@ export const getTrips = async () => {
 
                         reviewsRecieved: {
                             select: {
+                                id: true,
                                 numStars: true,
                             },
                         },
@@ -35,10 +36,11 @@ export const getTrips = async () => {
 
         return results.map((trip) => ({
             id: trip.id,
-            user: { ...trip.user, imageUrl: trip.user.imageUrl ?? "" },
-            reviewsReceived: trip.user.reviewsRecieved.map(
-                (review) => review.numStars
-            ),
+            user: trip.user,
+            reviewsReceived: trip.user.reviewsRecieved.map((review) => {
+                review.id;
+                review.numStars;
+            }),
             bookings: trip.bookings.map((booking) => booking.numSeats),
             departureDate: trip.departureDate,
             addressDeparture: trip.addressDeparture,
@@ -77,12 +79,14 @@ export const getTrip = async (id: number) => {
 
                         reviewsRecieved: {
                             select: {
+                                id: true,
                                 numStars: true,
                                 comment: true,
                                 createdAt: true,
 
                                 reviewer: {
                                     select: {
+                                        id: true,
                                         firstName: true,
                                         lastName: true,
                                         imageUrl: true,
@@ -101,14 +105,9 @@ export const getTrip = async (id: number) => {
             id: result.id,
             user: {
                 ...result.user,
-                imageUrl: result.user.imageUrl ?? "",
                 reviewsRecieved: result.user.reviewsRecieved.map((review) => ({
                     ...review,
                     createdAt: new Date(review.createdAt),
-                    reviewer: {
-                        ...review.reviewer,
-                        imageUrl: review.reviewer.imageUrl || "",
-                    },
                 })),
             },
             departureDate: result.departureDate,

@@ -1,4 +1,3 @@
-import { useBookings } from "@/hooks/useBookings";
 import Image from "next/image";
 
 export const BookedSeat = ({

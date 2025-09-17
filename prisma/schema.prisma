@@ -20,7 +20,7 @@ model User {
   email        String  @unique // -> Unik værdi
   password     String
   description  String? @db.Text // -> Lang tekst
-  imageUrl     String?
+  imageUrl     String  @default("/images/user-placeholder.png")
   refreshToken String
   isActive     Boolean @default(true) // -> Bool med default true
   createdAt    DateTime @default(now()) // -> Dato med default nuværende tidspunkt

@@ -36,7 +36,7 @@ export const SearchInput = ({
             changeSelectCity(null);
             setIsOpen(false);
         }
-    }, [searchQuery]);
+    }, [searchQuery, changeSelectCity]);
 
     return (
         <label
