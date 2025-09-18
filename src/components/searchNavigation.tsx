@@ -12,7 +12,7 @@ export const SearchNavigation = () => {
     const router = useRouter();
 
     return (
-        <main className="z-40 w-full bg-white border-y-1 border-gray-300 drop-shadow flex justify-center">
+        <main className="z-30 w-full bg-white border-y-1 border-gray-300 drop-shadow flex justify-center">
             <form
                 onSubmit={(e) => {
                     e.preventDefault();

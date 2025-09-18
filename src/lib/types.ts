@@ -77,7 +77,7 @@ export type TripType = {
 };
 
 export type ReviewsReceived = {
-    id: number;
+    id?: number;
     numStars: number;
     comment?: string;
     createdAt?: Date;

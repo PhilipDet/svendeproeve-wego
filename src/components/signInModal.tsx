@@ -24,24 +24,47 @@ export const SigninModal = ({
                         }
                     }}
                 >
-                    <section className="bg-white p-4 rounded-2xl flex flex-col gap-3 max-w-[400px] w-full py-8 px-20">
-                        <h2 className="text-xl text-center font-extrabold">
-                            {isSigningUp ? "Opret konto" : "Log ind"}
-                        </h2>
-                        {isSigningUp ? (
-                            <SignupForm
-                                setIsSigningUp={setIsSigningUp}
-                                setIsOpen={setIsOpen}
-                            />
-                        ) : (
-                            <LoginForm
-                                setIsSigningUp={setIsSigningUp}
-                                setIsOpen={setIsOpen}
-                            />
-                        )}
-                    </section>
+                    <SignInModalForm
+                        isSigningUp={isSigningUp}
+                        setIsSigningUp={setIsSigningUp}
+                        setIsOpen={setIsOpen}
+                        className="py-8 px-20"
+                    />
                 </main>
             )}
         </>
+    );
+};
+
+export const SignInModalForm = ({
+    isSigningUp,
+    setIsSigningUp,
+    setIsOpen,
+    className,
+}: {
+    isSigningUp: boolean;
+    setIsSigningUp: (isSigningUp: boolean) => void;
+    setIsOpen?: (isOpen: boolean) => void | undefined;
+    className?: string;
+}) => {
+    return (
+        <section
+            className={`bg-white rounded-2xl flex flex-col gap-3 max-w-[400px] w-full ${className}`}
+        >
+            <h2 className="text-xl text-center font-extrabold">
+                {isSigningUp ? "Opret konto" : "Log ind"}
+            </h2>
+            {isSigningUp ? (
+                <SignupForm
+                    setIsSigningUp={setIsSigningUp}
+                    setIsOpen={setIsOpen}
+                />
+            ) : (
+                <LoginForm
+                    setIsSigningUp={setIsSigningUp}
+                    setIsOpen={setIsOpen}
+                />
+            )}
+        </section>
     );
 };

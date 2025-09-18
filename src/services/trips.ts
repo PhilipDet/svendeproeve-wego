@@ -16,7 +16,6 @@ export const getTrips = async () => {
 
                         reviewsRecieved: {
                             select: {
-                                id: true,
                                 numStars: true,
                             },
                         },
@@ -37,10 +36,9 @@ export const getTrips = async () => {
         return results.map((trip) => ({
             id: trip.id,
             user: trip.user,
-            reviewsReceived: trip.user.reviewsRecieved.map((review) => {
-                review.id;
-                review.numStars;
-            }),
+            reviewsReceived: trip.user.reviewsRecieved.map(
+                (review) => review.numStars
+            ),
             bookings: trip.bookings.map((booking) => booking.numSeats),
             departureDate: trip.departureDate,
             addressDeparture: trip.addressDeparture,

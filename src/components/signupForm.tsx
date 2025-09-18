@@ -13,7 +13,7 @@ export const SignupForm = ({
     setIsOpen,
 }: {
     setIsSigningUp: (isSigningUp: boolean) => void;
-    setIsOpen: (isOpen: boolean) => void;
+    setIsOpen?: (isOpen: boolean) => void;
 }) => {
     const {
         register,
@@ -31,12 +31,12 @@ export const SignupForm = ({
                     if (result.status === 200) {
                         toast.success("Din konto er blevet oprettet!");
                         reset();
-                        setIsOpen(false);
+                        if (setIsOpen) setIsOpen(false);
                     } else {
                         toast.error(result.message);
                     }
                 })}
-                className="flex-1 flex flex-col gap-4 justify-center"
+                className="w-full flex-1 flex flex-col gap-4 justify-center"
             >
                 <InputField
                     label="Fornavn"

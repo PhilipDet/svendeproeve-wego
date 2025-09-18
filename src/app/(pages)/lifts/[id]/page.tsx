@@ -39,7 +39,7 @@ const DetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
 
     return (
         <>
-            <Container className="grid grid-cols-3 items-start gap-8">
+            <Container className="md:grid grid-cols-3 items-start gap-8">
                 {loading ? (
                     <p className="col-span-3">Henter detaljer om turen...</p>
                 ) : (
@@ -284,7 +284,8 @@ const DetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
                                                                             onClick={async () => {
                                                                                 const response =
                                                                                     await deleteReview(
-                                                                                        review.id
+                                                                                        review.id ||
+                                                                                            0
                                                                                     );
 
                                                                                 if (
@@ -345,7 +346,7 @@ const DetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
                                 </section>
                             </section>
 
-                            <section className="flex flex-col gap-2 mt-12">
+                            <section className="w-full flex flex-col gap-2 mt-12">
                                 <h2 className="text-lg font-extrabold">
                                     Pladser
                                 </h2>

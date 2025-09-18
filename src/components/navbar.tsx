@@ -8,10 +8,14 @@ import Link from "next/link";
 import { GuideModal } from "./guideModal";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Menu } from "lucide-react";
+import { NavigationModal } from "./navigationModal";
+import { toast } from "react-toastify";
 
 export const Navbar = () => {
     const pathName = usePathname();
     const { user, logout, loadingUser } = useAuth();
+    const [isNavOpen, setIsNavOpen] = useState(false);
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isGuideOpen, setIsGuideOpen] = useState(false);
 
@@ -35,6 +39,7 @@ export const Navbar = () => {
 
                     <li
                         className={cn(
+                            "max-md:hidden",
                             "relative pb-5 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-light-blue hover:after:w-full after:transition-all after:duration-300",
                             isActive("/lifts") ? "after:w-full" : "after:w-0"
                         )}
@@ -42,7 +47,7 @@ export const Navbar = () => {
                         <Link href="/lifts">Find et Lift</Link>
                     </li>
 
-                    <li className="relative pb-5 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-light-blue after:w-0 after:transition-all after:duration-300 hover:after:w-full">
+                    <li className="max-md:hidden relative pb-5 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-light-blue after:w-0 after:transition-all after:duration-300 hover:after:w-full">
                         <button onClick={() => setIsGuideOpen(true)}>
                             Sådan virker det
                         </button>
@@ -51,6 +56,7 @@ export const Navbar = () => {
                     {!loadingUser && user && (
                         <li
                             className={cn(
+                                "max-md:hidden",
                                 "relative pb-5 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-light-blue hover:after:w-full after:transition-all after:duration-300",
                                 isActive("/dashboard")
                                     ? "after:w-full"
@@ -65,14 +71,32 @@ export const Navbar = () => {
                         {!loadingUser &&
                             (user ? (
                                 <>
-                                    <li className="pb-5">
+                                    <li className="md:hidden pb-5">
+                                        <Image
+                                            src={
+                                                user.imageUrl ||
+                                                "/images/user-placeholder.png"
+                                            }
+                                            alt={`Dit Profil Billede`}
+                                            width={40}
+                                            height={40}
+                                            className="rounded-full h-10 w-10 object-cover"
+                                        />
+                                    </li>
+
+                                    <li className="max-md:hidden pb-5">
                                         <span className="text-sm">
                                             {user.firstName} {user.lastName}
                                         </span>
                                     </li>
-                                    <li className="pb-5">
+                                    <li className="max-md:hidden pb-5">
                                         <button
-                                            onClick={logout}
+                                            onClick={() => {
+                                                logout();
+                                                toast.success(
+                                                    "Du er nu logget ud!"
+                                                );
+                                            }}
                                             className="btn-secondary"
                                         >
                                             Logout
@@ -80,7 +104,7 @@ export const Navbar = () => {
                                     </li>
                                 </>
                             ) : (
-                                <li className="pb-5">
+                                <li className="max-md:hidden pb-5">
                                     <button
                                         onClick={() => setIsLoginOpen(true)}
                                         className="btn-secondary"
@@ -90,9 +114,15 @@ export const Navbar = () => {
                                 </li>
                             ))}
                     </ul>
+                    <li className="md:hidden pb-5">
+                        <button onClick={() => setIsNavOpen(true)}>
+                            <Menu size={30} />
+                        </button>
+                    </li>
                 </ul>
             </nav>
 
+            <NavigationModal isOpen={isNavOpen} setIsOpen={setIsNavOpen} />
             <SigninModal isOpen={isLoginOpen} setIsOpen={setIsLoginOpen} />
             <GuideModal isOpen={isGuideOpen} setIsOpen={setIsGuideOpen} />
         </>

@@ -5,12 +5,17 @@ import { useTrips } from "@/hooks/useTrips";
 import Image from "next/image";
 import { StarRating } from "@/components/starRating";
 import { tripFormattedDate } from "@/lib/utils";
-import { MapPin, Target } from "lucide-react";
 import { Seats } from "@/components/seats";
 import Link from "next/link";
 import { Filter } from "@/components/filter";
 import { useFilter } from "@/context/filterContext";
 import { useMemo } from "react";
+import { LiftsWhere } from "@/components/liftsWhere";
+import {
+    ArrowRightCircleIcon,
+    ChevronRightIcon,
+    LucideTimer,
+} from "lucide-react";
 
 const LiftsPage = () => {
     const { trips, loading } = useTrips();
@@ -90,8 +95,8 @@ const LiftsPage = () => {
                             href={`/lifts/${trip.id}`}
                             className="w-full"
                         >
-                            <article className="h-full flex bg-white rounded-2xl drop-shadow hover:bg-muted-background transition-colors duration-200 cursor-pointer">
-                                <div className="max-w-[149px] w-full flex flex-col justify-between items-center p-4 border-r border-gray-300">
+                            <article className="max-md:p-4 h-full grid max-md:gap-2 md:flex md:flex-row items-center md:items-stretch bg-white rounded-2xl drop-shadow hover:bg-muted-background transition-colors duration-200 cursor-pointer">
+                                <div className="md:max-w-[149px] w-full max-md:row-start-3 flex md:flex-col md:justify-between items-center gap-2 md:p-4 md:border-r border-gray-300">
                                     <Image
                                         src={
                                             trip.user?.imageUrl ||
@@ -102,16 +107,29 @@ const LiftsPage = () => {
                                         height={66}
                                         className="rounded-full"
                                     />
-                                    <span>{trip.user?.firstName}</span>
-                                    <StarRating
-                                        rating={trip.reviewsReceived ?? []}
-                                        size={16}
-                                    />
+                                    <div className="flex flex-col md:items-center gap-1">
+                                        <span>{trip.user?.firstName}</span>
+                                        <StarRating
+                                            rating={trip.reviewsReceived ?? []}
+                                            size={16}
+                                        />
+                                    </div>
+
+                                    <button className="md:hidden ml-auto bg-light-blue rounded-full p-4">
+                                        <ChevronRightIcon
+                                            size={30}
+                                            className="text-background"
+                                        />
+                                    </button>
                                 </div>
 
-                                <div className="w-full p-4 flex flex-col justify-between gap-2.5">
-                                    <ul className="flex justify-between items-center">
-                                        <li className="font-extrabold">
+                                <div className="w-full md:p-4 flex flex-col items-center md:items-stretch justify-between gap-2.5">
+                                    <ul className="w-full flex justify-between items-center">
+                                        <li className="font-light md:font-extrabold flex items-center gap-2">
+                                            <LucideTimer
+                                                size={24}
+                                                className="md:hidden text-gray-500"
+                                            />
                                             {tripFormattedDate(
                                                 trip.departureDate.toISOString() ??
                                                     undefined
@@ -140,44 +158,28 @@ const LiftsPage = () => {
                                             )}
                                         </ul>
                                     </ul>
-                                    <div className="flex gap-2">
-                                        <Target
-                                            size={18}
-                                            className="text-light-blue"
+                                    <div className="w-full flex flex-col gap-1">
+                                        <LiftsWhere
+                                            icon="Target"
+                                            city={trip.cityDeparture}
+                                            address={trip.addressDeparture}
                                         />
-                                        <div>
-                                            <p className="text-sm font-extrabold">
-                                                {trip.cityDeparture}
-                                            </p>
-                                            <p className="text-sm break-words">
-                                                {trip.addressDeparture}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <MapPin
-                                            size={18}
-                                            className="text-light-blue"
+                                        <LiftsWhere
+                                            icon="MapPin"
+                                            city={trip.cityDestination}
+                                            address={trip.addressDestination}
                                         />
-                                        <div>
-                                            <p className="text-sm font-extrabold">
-                                                {trip.cityDestination}
-                                            </p>
-                                            <p className="text-sm break-words">
-                                                {trip.addressDestination}
-                                            </p>
-                                        </div>
                                     </div>
                                 </div>
 
-                                <div className="grid grid-rows-2 max-w-[120px] w-full border-l border-gray-300">
+                                <div className="md:max-w-[120px] w-full flex max-md:justify-between md:grid md:grid-rows-2 md:border-l max-md:py-2 max-md:px-4 max-md:border-2 max-md:rounded-full border-gray-300">
                                     <div className="flex justify-center items-center">
                                         <span className="font-extrabold">
                                             DKK {trip.pricePerSeat}
                                         </span>
                                     </div>
 
-                                    <ul className="flex-1 flex justify-center items-center gap-1.5 border-t border-gray-300">
+                                    <ul className="flex-1 flex justify-end md:justify-center items-center gap-1.5 md:border-t md:border-gray-300">
                                         <Seats
                                             totalSeats={trip.seatsTotal}
                                             bookedSeats={trip.bookings ?? []}

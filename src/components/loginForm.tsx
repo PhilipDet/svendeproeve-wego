@@ -13,7 +13,7 @@ export const LoginForm = ({
     setIsOpen,
 }: {
     setIsSigningUp: (isSigningUp: boolean) => void;
-    setIsOpen: (isOpen: boolean) => void;
+    setIsOpen?: (isOpen: boolean) => void;
 }) => {
     const {
         register,
@@ -31,12 +31,12 @@ export const LoginForm = ({
                     if (result.status === 200) {
                         toast.success("Du er logget ind!");
                         reset();
-                        setIsOpen(false);
+                        if (setIsOpen) setIsOpen(false);
                     } else {
                         toast.error(result.message);
                     }
                 })}
-                className="flex-1 flex flex-col gap-4 max-w-sm w-full"
+                className="w-full flex-1 flex flex-col gap-4"
             >
                 <InputField
                     label="Email"
