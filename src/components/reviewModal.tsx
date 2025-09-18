@@ -7,6 +7,9 @@ import { handleFormError } from "@/lib/error";
 import { ReviewFormType, ReviewsReceived } from "@/lib/types";
 import { toast } from "react-toastify";
 import { createReview } from "@/services/reviews";
+import { Star } from "lucide-react";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 export const ReviewModal = ({
     isOpen,
@@ -28,18 +31,20 @@ export const ReviewModal = ({
         formState: { errors },
     } = useForm<ReviewFormType>();
 
+    const [rating, setRating] = useState(5);
+
     return (
         <>
             {isOpen && userId && (
                 <main
-                    className="z-50 fixed inset-0 bg-black/50 flex items-center justify-center"
+                    className="z-50 fixed inset-0 bg-black/50 flex items-center justify-center p-4"
                     onClick={(e) => {
                         if (e.target === e.currentTarget) {
                             setIsOpen(false);
                         }
                     }}
                 >
-                    <section className="bg-white p-4 rounded-2xl flex flex-col gap-3 max-w-[400px] w-full py-8 px-20">
+                    <section className="bg-white rounded-2xl flex flex-col gap-3 max-w-[400px] w-full p-4 sm:py-8 sm:px-20">
                         <h2 className="text-xl text-center font-extrabold">
                             Skriv en anmeldelse
                         </h2>
@@ -48,7 +53,7 @@ export const ReviewModal = ({
                             onSubmit={handleSubmit(async (data) => {
                                 data.reviewerId = userId;
                                 data.reviewedUserId = driverId;
-                                data.numStars = Number(data.numStars);
+                                data.numStars = rating;
 
                                 const result = await createReview(data);
                                 if (result.status === 200) {
@@ -64,23 +69,39 @@ export const ReviewModal = ({
                             })}
                             className="flex-1 flex flex-col gap-4 max-w-sm w-full"
                         >
-                            <select
-                                id="numStars"
-                                {...register("numStars")}
-                                className="input"
-                            >
-                                {Array.from({ length: 5 }, (_, i) => i + 1).map(
-                                    (num) => (
-                                        <option key={num} value={num}>
-                                            {num} Stjerner
-                                        </option>
-                                    )
-                                )}
-                            </select>
+                            <section>
+                                <label className="text-sm flex flex-col gap-1">
+                                    Antal stjerner
+                                    <div className="flex justify-between">
+                                        {Array.from(
+                                            { length: 5 },
+                                            (_, i) => i + 1
+                                        ).map((num) => (
+                                            <button
+                                                key={num}
+                                                type="button"
+                                                onClick={() => {
+                                                    setRating(num);
+                                                }}
+                                            >
+                                                <Star
+                                                    size={30}
+                                                    className={cn(
+                                                        rating >= num
+                                                            ? "fill-yellow-500"
+                                                            : "fill-gray-300",
+                                                        "stroke-none"
+                                                    )}
+                                                />
+                                            </button>
+                                        ))}
+                                    </div>
+                                </label>
+                            </section>
 
                             <InputField
                                 label="Anmeldelse"
-                                type="text"
+                                type="textarea"
                                 registration={register("comment", {
                                     validate: validation.comment,
                                 })}

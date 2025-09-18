@@ -17,6 +17,8 @@ export const getUser = async (id: number) => {
             firstName: result.firstName,
             lastName: result.lastName,
             email: result.email,
+            description: result.description,
+            imageUrl: result.imageUrl,
             isActive: result.isActive,
         };
     } catch (error: unknown) {

@@ -1,15 +1,18 @@
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 export const BookedSeat = ({
     firstName,
     imageUrl,
+    className,
 }: {
     firstName: string;
     imageUrl?: string;
+    className?: string;
 }) => {
     return (
         <>
-            <div className="flex flex-col gap-3">
+            <div className={cn("flex flex-col gap-3", className)}>
                 <article className="flex items-center gap-3">
                     <Image
                         src={imageUrl || "/images/user-placeholder.png"}
@@ -18,9 +21,9 @@ export const BookedSeat = ({
                         height={50}
                         className="rounded-full aspect-square object-cover"
                     />
-                    <span>{firstName}</span>
+                    <span className="max-md:hidden">{firstName}</span>
                 </article>
-                <hr className="border-1 border-gray-300" />
+                <hr className="max-md:hidden border-1 border-gray-300" />
             </div>
         </>
     );

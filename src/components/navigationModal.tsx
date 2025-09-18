@@ -18,7 +18,7 @@ export const NavigationModal = ({
 
     return (
         isOpen && (
-            <Container className="md:hidden max-w-full fixed inset-0 w-full h-full bg-background text-xl z-40 pt-48 px-11">
+            <Container className="md:hidden max-w-full fixed inset-0 w-full h-dvh bg-background text-xl z-40 pt-40 px-11">
                 <X
                     className="absolute top-8 right-8 cursor-pointer"
                     size={40}

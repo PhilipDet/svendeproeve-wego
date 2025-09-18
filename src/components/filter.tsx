@@ -32,7 +32,7 @@ export const Filter = () => {
                 e.preventDefault();
                 resetFilter();
             }}
-            className="md:max-w-40 max-md:grid max-md:grid-cols-2 w-full flex flex-col gap-3 bg-background p-3 rounded-2xl"
+            className="md:sticky top-22 md:max-w-40 max-md:grid max-md:grid-cols-2 w-full flex flex-col gap-3 bg-background p-3 rounded-2xl"
         >
             <div className="flex flex-col col-span-2 gap-2">
                 <label

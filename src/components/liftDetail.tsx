@@ -19,7 +19,7 @@ export const LiftDetail = ({
                 className="text-green"
             />
             <div>
-                <span className="uppercase text-sm font-medium text-gray-400">
+                <span className="max-sm:hidden uppercase text-sm font-medium text-gray-400">
                     {label}
                 </span>
                 <p className="text-sm">{paragraf}</p>

@@ -32,7 +32,7 @@ export function InputField({
                     <textarea
                         {...registration}
                         onChange={handleChange}
-                        className="input h-23"
+                        className="input h-23 resize-none"
                         placeholder={placeholder}
                     />
                 ) : (

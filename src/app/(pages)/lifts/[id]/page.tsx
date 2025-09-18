@@ -84,7 +84,7 @@ const DetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
                                     <span className="text-sm font-medium">
                                         Detaljer
                                     </span>
-                                    <section className="grid grid-cols-2 gap-x-8 gap-y-2">
+                                    <section className="sm:grid sm:grid-cols-2 flex flex-col sm:gap-x-8 gap-y-2">
                                         {trip.hasComfort && (
                                             <LiftDetail
                                                 label="Komfort"
@@ -168,7 +168,7 @@ const DetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
                                         Chaufføren:
                                     </h3>
 
-                                    <article className="flex gap-4">
+                                    <article className="flex max-sm:flex-col gap-4">
                                         <Image
                                             src={
                                                 trip.user?.imageUrl ||
@@ -190,7 +190,7 @@ const DetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
                                                 .
                                             </span>
 
-                                            <ul className="flex gap-2.5 items-center">
+                                            <ul className="flex max-sm:flex-col gap-2.5 md:items-center">
                                                 <li>
                                                     <StarRating
                                                         rating={
@@ -342,7 +342,7 @@ const DetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
                                 </section>
                             </section>
 
-                            <section className="w-full flex flex-col gap-2 mt-12">
+                            <section className="w-full flex flex-col gap-2 md:mt-12">
                                 <h2 className="text-lg font-extrabold">
                                     Pladser
                                 </h2>
@@ -350,7 +350,7 @@ const DetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
                                     {loadingBookings ? (
                                         <p>Loading...</p>
                                     ) : (
-                                        <>
+                                        <div className="flex md:flex-col gap-4">
                                             {bookings.map((booking, index) => (
                                                 <BookedSeat
                                                     key={`booked-${index}`}
@@ -375,7 +375,7 @@ const DetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
                                                     firstName="Dig?"
                                                 />
                                             ))}
-                                        </>
+                                        </div>
                                     )}
 
                                     <ul className="flex justify-between">

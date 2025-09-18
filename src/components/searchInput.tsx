@@ -38,11 +38,10 @@ export const SearchInput = ({
             }, []) || [];
 
     useEffect(() => {
-        if (searchQuery === "") {
-            changeSelectCity(null);
+        if (holdLocation === "") {
             setIsOpen(false);
         }
-    }, [searchQuery, changeSelectCity]);
+    }, [holdLocation, changeSelectCity]);
 
     return (
         <label
