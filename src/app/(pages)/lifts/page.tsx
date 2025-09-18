@@ -84,7 +84,7 @@ const LiftsPage = () => {
     };
 
     return (
-        <Container className="flex-row items-start">
+        <Container className="flex-row max-md:grid items-start">
             <Filter />
 
             <section className="w-full flex flex-col gap-4">

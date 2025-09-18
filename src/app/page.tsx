@@ -3,7 +3,7 @@ import ImageSlider from "@/components/imageSlider";
 
 export default function Home() {
     return (
-        <main className="w-full flex-1 flex flex-col items-center md:justify-center justify-between max-md:py-6 max-md:px-8">
+        <main className="w-full flex-1 flex flex-col gap-5 items-center md:justify-center justify-between max-md:py-6 max-md:px-8">
             <SearchNavigation className="md:hidden" />
 
             <div className="md:hidden bg-background p-4 rounded-2xl">
