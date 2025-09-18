@@ -14,7 +14,7 @@ import { useAuth } from "@/context/authContext";
 import { createBooking } from "@/services/bookings";
 import Link from "next/link";
 import { useTrip } from "@/hooks/useTrips";
-import { useBookings } from "@/hooks/useBookings";
+import { useBookingsByTripId } from "@/hooks/useBookings";
 import { MoveRight } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 
@@ -22,7 +22,7 @@ const BookingPage = ({ params }: { params: Promise<{ id: string }> }) => {
     const { id } = use(params);
     const { user } = useAuth();
     const { trip } = useTrip(Number(id));
-    const { bookings, loadingBookings } = useBookings(Number(id));
+    const { bookings, loadingBookings } = useBookingsByTripId(Number(id));
     const router = useRouter();
 
     const [selectedSeats, setSelectedSeats] = useState(1);
@@ -52,13 +52,13 @@ const BookingPage = ({ params }: { params: Promise<{ id: string }> }) => {
                                 data.tripId = Number(id);
                                 data.numSeats = selectedSeats;
 
-                                const result = await createBooking(data);
-                                if (result.status === 200) {
-                                    toast.success("Din plads er booket!");
+                                const response = await createBooking(data);
+                                if (response.status === 200) {
+                                    toast.success(response.message);
                                     reset();
                                     router.push(`/lifts/${id}`);
                                 } else {
-                                    toast.error(result.message);
+                                    toast.error(response.message);
                                 }
                             })}
                             className="flex flex-col gap-4"
@@ -81,8 +81,13 @@ const BookingPage = ({ params }: { params: Promise<{ id: string }> }) => {
                                         {Array.from(
                                             {
                                                 length:
-                                                    trip?.seatsTotal ||
-                                                    0 - bookings.length,
+                                                    (trip?.seatsTotal ?? 0) -
+                                                        bookings.length >
+                                                    0
+                                                        ? (trip?.seatsTotal ??
+                                                              0) -
+                                                          bookings.length
+                                                        : 0,
                                             },
                                             (_, i) => i + 1
                                         ).map((num) => (

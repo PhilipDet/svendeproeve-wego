@@ -97,7 +97,7 @@ export const Navbar = () => {
                                                     "Du er nu logget ud!"
                                                 );
                                             }}
-                                            className="btn-secondary"
+                                            className="btn-secondary bg-transparent text-dark-blue border-dark-blue hover:bg-dark-blue hover:text-white"
                                         >
                                             Logout
                                         </button>

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { getBookings } from "@/services/bookings";
+import { getBookingsByTripId, getBookingsByUserId } from "@/services/bookings";
 import { handleError } from "@/lib/error";
 import { BookingType } from "@/lib/types";
 
-export const useBookings = (tripId: number) => {
+export const useBookingsByTripId = (tripId: number) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [bookings, setBookings] = useState<BookingType[]>([]);
 
@@ -11,7 +11,7 @@ export const useBookings = (tripId: number) => {
         const fetchCities = async () => {
             setLoading(true);
             try {
-                const response = await getBookings(tripId);
+                const response = await getBookingsByTripId(tripId);
 
                 if (!response) throw new Error("No bookings found");
 
@@ -35,5 +35,30 @@ export const useBookings = (tripId: number) => {
         fetchCities();
     }, [tripId]);
 
+    return { bookings, loadingBookings: loading };
+};
+
+export const useBookingsByUserId = (userId?: number | null) => {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [bookings, setBookings] = useState<BookingType[]>([]);
+    useEffect(() => {
+        const fetchBookings = async () => {
+            setLoading(true);
+            if (!userId) return;
+
+            try {
+                const response = await getBookingsByUserId(userId);
+
+                if (!response) throw new Error("No bookings found");
+
+                setBookings(response);
+            } catch (error) {
+                console.error("Error fetching bookings:", handleError(error));
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchBookings();
+    }, [userId]);
     return { bookings, loadingBookings: loading };
 };

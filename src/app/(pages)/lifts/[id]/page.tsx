@@ -10,17 +10,18 @@ import { ReviewsReceived } from "@/lib/types";
 import { LiftDetail } from "@/components/liftDetail";
 import { LiftPreferences } from "@/components/liftPreferences";
 import { BookedSeat } from "@/components/bookedSeat";
-import { useBookings } from "@/hooks/useBookings";
+import { useBookingsByTripId } from "@/hooks/useBookings";
 import Link from "next/link";
 import { ReviewModal } from "@/components/reviewModal";
 import { useAuth } from "@/context/authContext";
 import { X } from "lucide-react";
 import { deleteReview } from "@/services/reviews";
+import { toast } from "react-toastify";
 
 const DetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
     const { id } = use(params);
     const { trip, loading } = useTrip(Number(id));
-    const { bookings, loadingBookings } = useBookings(Number(id));
+    const { bookings, loadingBookings } = useBookingsByTripId(Number(id));
     const { user, loadingUser } = useAuth();
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [reviews, setReviews] = useState<ReviewsReceived[] | null>(null);
@@ -285,8 +286,9 @@ const DetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
                                                                                     );
 
                                                                                 if (
-                                                                                    response
-                                                                                )
+                                                                                    response.status ===
+                                                                                    200
+                                                                                ) {
                                                                                     setReviews(
                                                                                         (
                                                                                             prev:
@@ -303,6 +305,14 @@ const DetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
                                                                                                   )
                                                                                                 : null
                                                                                     );
+                                                                                    toast.success(
+                                                                                        response.message
+                                                                                    );
+                                                                                } else {
+                                                                                    toast.error(
+                                                                                        response.message
+                                                                                    );
+                                                                                }
                                                                             }}
                                                                         >
                                                                             <X />

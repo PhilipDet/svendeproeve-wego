@@ -55,16 +55,16 @@ export const ReviewModal = ({
                                 data.reviewedUserId = driverId;
                                 data.numStars = rating;
 
-                                const result = await createReview(data);
-                                if (result.status === 200) {
-                                    toast.success("Tak for din anmeldelse!");
+                                const response = await createReview(data);
+                                if (response.status === 200) {
+                                    toast.success(response.message);
                                     reset();
-                                    if (result.data) {
-                                        onCreateReview(result.data);
+                                    if (response.data) {
+                                        onCreateReview(response.data);
                                     }
                                     setIsOpen(false);
                                 } else {
-                                    toast.error(result.message);
+                                    toast.error(response.message);
                                 }
                             })}
                             className="flex-1 flex flex-col gap-4 max-w-sm w-full"

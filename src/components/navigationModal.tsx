@@ -18,13 +18,13 @@ export const NavigationModal = ({
 
     return (
         isOpen && (
-            <Container className="md:hidden max-w-full fixed inset-0 w-full h-dvh bg-background text-xl z-40 pt-40 px-11">
-                <X
+            <Container className="md:hidden fixed inset-0 w-full h-dvh bg-background text-xl z-40 pt-18 px-11">
+                <button
                     className="absolute top-8 right-8 cursor-pointer"
-                    size={40}
                     onClick={() => setIsOpen(false)}
-                />
-
+                >
+                    <X size={40} />
+                </button>
                 <ul className="w-full flex flex-col gap-4">
                     <ul>
                         <li>

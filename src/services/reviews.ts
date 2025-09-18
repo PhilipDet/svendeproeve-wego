@@ -36,7 +36,7 @@ export const createReview = async ({
 
         return {
             status: 200,
-            message: "Review created successfully",
+            message: "Tak for din anmeldelse!",
             data: {
                 id: result.id,
                 numStars: result.numStars,
@@ -63,7 +63,7 @@ export const deleteReview = async (reviewId: number) => {
 
         return {
             status: 200,
-            message: "Review deleted successfully",
+            message: "Din anmeldelse er slettet!",
         };
     } catch (error: unknown) {
         return {
