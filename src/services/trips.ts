@@ -94,6 +94,8 @@ export const getTrip = async (id: number) => {
                         },
                     },
                 },
+
+                bagsize: true,
             },
         });
 
@@ -108,6 +110,7 @@ export const getTrip = async (id: number) => {
                     createdAt: new Date(review.createdAt),
                 })),
             },
+            bagsize: result.bagsize,
             departureDate: result.departureDate,
             cityDeparture: result.cityDeparture,
             cityDestination: result.cityDestination,

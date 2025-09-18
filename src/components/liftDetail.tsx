@@ -11,7 +11,13 @@ export const LiftDetail = ({
 }) => {
     return (
         <article className="flex items-center gap-2.5">
-            <Image src={imageurl} alt={label} width={20} height={20} />
+            <Image
+                src={imageurl}
+                alt={label}
+                width={20}
+                height={20}
+                className="text-green"
+            />
             <div>
                 <span className="uppercase text-sm font-medium text-gray-400">
                     {label}

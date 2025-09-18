@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { MapPin, Target } from "lucide-react";
 import { useCities } from "@/hooks/useCities";
 import { useFilter } from "@/context/filterContext";
@@ -6,9 +6,11 @@ import { useFilter } from "@/context/filterContext";
 export const SearchInput = ({
     isLocationFrom = false,
     changeSelectCity,
+    holdLocation,
 }: {
     isLocationFrom?: boolean;
     changeSelectCity: (city: string | null) => void;
+    holdLocation: string | null;
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const { citiesDeparture, citiesDestination, loading } = useCities();
@@ -24,7 +26,11 @@ export const SearchInput = ({
     const filteredCities =
         cities
             ?.filter((city: string) =>
-                city.toLowerCase().includes(searchQuery.toLowerCase())
+                city
+                    .toLowerCase()
+                    .includes(
+                        holdLocation?.toLowerCase() || searchQuery.toLowerCase()
+                    )
             )
             .reduce((acc: string[], city: string) => {
                 if (!acc.includes(city)) acc.push(city);
@@ -41,7 +47,7 @@ export const SearchInput = ({
     return (
         <label
             htmlFor={isLocationFrom ? "locationFrom" : "locationTo"}
-            className="relative w-full flex items-center gap-2 py-2.5 px-2 bg-white rounded-xl border-2 border-gray-300 cursor-text"
+            className="relative md:min-w-[300px] w-full flex items-center gap-2 py-2.5 px-2 bg-white rounded-xl border-2 border-gray-300 focus:border-light-blue cursor-text"
         >
             {isLocationFrom ? (
                 <Target size={16} className="text-light-blue" />
@@ -57,12 +63,12 @@ export const SearchInput = ({
                     setIsOpen(true);
                     changeSelectCity(e.target.value);
                 }}
-                value={searchQuery}
+                value={holdLocation ?? searchQuery}
                 className="text-sm w-full"
             />
 
             {isOpen && filteredCities.length > 0 && (
-                <ul className="max-w-[300px] w-full absolute top-full left-0 bg-white border-2 border-gray-300 max-h-60 overflow-y-scroll rounded-y-xl rounded-l-xl">
+                <ul className="z-40 max-w-[300px] w-full absolute top-full left-0 bg-white border-2 border-gray-300 max-h-60 overflow-y-scroll rounded-y-xl rounded-l-xl">
                     {filteredCities.map((city) => (
                         <li
                             key={city}

@@ -1,4 +1,4 @@
-import { Home, Search, X } from "lucide-react";
+import { Home, Search, User, X } from "lucide-react";
 import Link from "next/link";
 import { Container } from "./container";
 import { useState } from "react";
@@ -47,6 +47,18 @@ export const NavigationModal = ({
                                 Find et lift
                             </Link>
                         </li>
+                        {!loadingUser && user && (
+                            <li>
+                                <Link
+                                    href="/dashboard"
+                                    onClick={() => setIsOpen(false)}
+                                    className="w-full flex items-center gap-2 py-4"
+                                >
+                                    <User size={30} />
+                                    Min side
+                                </Link>
+                            </li>
+                        )}
                     </ul>
                     <li>
                         {!loadingUser && user ? (

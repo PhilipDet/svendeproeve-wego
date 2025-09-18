@@ -103,15 +103,11 @@ const DetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
                                         <LiftDetail
                                             label="Bagagestørrelse"
                                             paragraf={
-                                                trip.bagSizeId === 1
-                                                    ? "Lille skuldertaske eller rygsæk"
-                                                    : trip.bagSizeId === 2
-                                                    ? "Kuffert eller sportstaske"
-                                                    : trip.bagSizeId === 3
-                                                    ? "Stor kuffert eller flere tasker"
-                                                    : "Ugyldig bagagestørrelse"
+                                                trip.bagsize?.description ||
+                                                "Ukendt Bagagestørrelse"
                                             }
                                             imageurl={
+                                                trip.bagsize?.iconUrl ||
                                                 "/images/icons/bag-md.svg"
                                             }
                                         />

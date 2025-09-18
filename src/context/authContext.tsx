@@ -3,10 +3,12 @@
 import { SignupType, LoginType, UserType, AuthContextType } from "@/lib/types";
 import { handleError } from "@/lib/error";
 import { createContext, useContext, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+    const router = useRouter();
     const [user, setUser] = useState<UserType | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -122,6 +124,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             sessionStorage.removeItem("accessToken");
 
             setUser(null);
+
+            router.push("/");
         } catch (error) {
             console.error(error);
         }

@@ -57,6 +57,12 @@ export type TripType = {
     user?: UserType;
     reviewsReceived?: number[];
     bookings?: number[];
+    bagsize?: {
+        id: number;
+        name: string;
+        description: string;
+        iconUrl: string;
+    };
     departureDate: Date;
     cityDeparture: string;
     addressDeparture: string;
