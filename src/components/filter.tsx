@@ -32,7 +32,7 @@ export const Filter = () => {
                 e.preventDefault();
                 resetFilter();
             }}
-            className="md:sticky top-22 md:max-w-40 max-md:grid max-md:grid-cols-2 w-full flex flex-col gap-3 bg-background p-3 rounded-2xl"
+            className="md:sticky top-22 md:max-w-40 md:w-full max-md:grid max-md:grid-cols-2 w-full flex flex-col gap-3 bg-background p-3 rounded-2xl"
         >
             <div className="flex flex-col col-span-2 gap-2">
                 <label
@@ -131,7 +131,7 @@ export const Filter = () => {
 
             <div className="flex flex-col max-md:col-span-2 gap-2">
                 <span className="font-extrabold text-sm">Præferencer</span>
-                <div className="grid grid-cols-2 max-sm:grid-cols-1 md:flex-col pr-2 gap-2">
+                <div className="grid grid-cols-2 max-sm:grid-cols-1 md:flex md:flex-col pr-2 gap-2">
                     <CheckBox
                         label="Musik"
                         name="music"

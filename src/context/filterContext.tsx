@@ -18,8 +18,6 @@ export const FilterProvider = ({ children }: { children: React.ReactNode }) => {
     const [smoking, setSmoking] = useState<boolean>(false);
 
     const resetFilter = () => {
-        setLocationFrom(null);
-        setLocationTo(null);
         setSeats(1);
         setLuggageSize(null);
         setComfort(false);

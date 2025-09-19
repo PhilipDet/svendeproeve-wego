@@ -6,11 +6,11 @@ import { useFilter } from "@/context/filterContext";
 export const SearchInput = ({
     isLocationFrom = false,
     changeSelectCity,
-    holdLocation,
+    tempLocation,
 }: {
     isLocationFrom?: boolean;
-    changeSelectCity: (city: string | null) => void;
-    holdLocation: string | null;
+    changeSelectCity: (city: string) => void;
+    tempLocation: string;
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const { citiesDeparture, citiesDestination, loading } = useCities();
@@ -29,7 +29,7 @@ export const SearchInput = ({
                 city
                     .toLowerCase()
                     .includes(
-                        holdLocation?.toLowerCase() || searchQuery.toLowerCase()
+                        tempLocation?.toLowerCase() || searchQuery.toLowerCase()
                     )
             )
             .reduce((acc: string[], city: string) => {
@@ -38,10 +38,10 @@ export const SearchInput = ({
             }, []) || [];
 
     useEffect(() => {
-        if (holdLocation === "") {
+        if (tempLocation === "") {
             setIsOpen(false);
         }
-    }, [holdLocation, changeSelectCity]);
+    }, [tempLocation]);
 
     return (
         <label
@@ -62,7 +62,7 @@ export const SearchInput = ({
                     setIsOpen(true);
                     changeSelectCity(e.target.value);
                 }}
-                value={holdLocation ?? searchQuery}
+                value={tempLocation}
                 className="text-sm w-full"
             />
 

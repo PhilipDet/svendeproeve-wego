@@ -11,11 +11,11 @@ export const SearchNavigation = ({ className }: { className?: string }) => {
     const { setLocationFrom, setLocationTo, locationFrom, locationTo } =
         useFilter();
 
-    const [holdLocationFrom, setHoldLocationFrom] = useState<string | null>(
-        locationFrom || null
+    const [tempLocationFrom, setTempLocationFrom] = useState<string>(
+        locationFrom || ""
     );
-    const [holdLocationTo, setHoldLocationTo] = useState<string | null>(
-        locationTo || null
+    const [tempLocationTo, setTempLocationTo] = useState<string>(
+        locationTo || ""
     );
 
     const pathName = usePathname();
@@ -33,8 +33,8 @@ export const SearchNavigation = ({ className }: { className?: string }) => {
                 onSubmit={(e) => {
                     e.preventDefault();
 
-                    setLocationFrom(holdLocationFrom);
-                    setLocationTo(holdLocationTo);
+                    setLocationFrom(tempLocationFrom);
+                    setLocationTo(tempLocationTo);
 
                     if (pathName !== "/lifts") router.push("/lifts");
                 }}
@@ -42,16 +42,16 @@ export const SearchNavigation = ({ className }: { className?: string }) => {
             >
                 <SearchInput
                     isLocationFrom={true}
-                    changeSelectCity={setHoldLocationFrom}
-                    holdLocation={holdLocationFrom}
+                    changeSelectCity={setTempLocationFrom}
+                    tempLocation={tempLocationFrom}
                 />
 
                 <button
                     type="button"
                     onClick={() => {
-                        const temp = holdLocationFrom;
-                        setHoldLocationFrom(holdLocationTo);
-                        setHoldLocationTo(temp);
+                        const temp = tempLocationFrom;
+                        setTempLocationFrom(tempLocationTo);
+                        setTempLocationTo(temp);
                     }}
                     className="max-w-[47.2px] w-full flex items-center justify-center bg-light-blue/20 text-light-blue rounded-xl max-md:hidden"
                 >
@@ -60,8 +60,8 @@ export const SearchNavigation = ({ className }: { className?: string }) => {
 
                 <SearchInput
                     isLocationFrom={false}
-                    changeSelectCity={setHoldLocationTo}
-                    holdLocation={holdLocationTo}
+                    changeSelectCity={setTempLocationTo}
+                    tempLocation={tempLocationTo}
                 />
 
                 <button type="submit" className="btn w-full">
