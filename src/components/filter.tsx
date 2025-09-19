@@ -7,7 +7,11 @@ import { BagMd } from "@/components/bagmd";
 import { BagLg } from "@/components/baglg";
 import { CheckBox } from "./checkbox";
 
-export const Filter = () => {
+export const Filter = ({
+    goToPage,
+}: {
+    goToPage: (newPage: number) => void;
+}) => {
     const {
         seats,
         setSeats,
@@ -32,6 +36,7 @@ export const Filter = () => {
                 e.preventDefault();
                 resetFilter();
             }}
+            onChange={() => goToPage(1)}
             className="md:sticky top-22 md:max-w-40 md:w-full max-md:grid max-md:grid-cols-2 w-full flex flex-col gap-3 bg-background p-3 rounded-2xl"
         >
             <div className="flex flex-col col-span-2 gap-2">

@@ -7,9 +7,10 @@ import { handleFormError } from "@/lib/error";
 import { ReviewFormType, ReviewsReceived } from "@/lib/types";
 import { toast } from "react-toastify";
 import { createReview } from "@/services/reviews";
-import { Star } from "lucide-react";
+import { Star, X } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const ReviewModal = ({
     isOpen,
@@ -34,17 +35,34 @@ export const ReviewModal = ({
     const [rating, setRating] = useState(5);
 
     return (
-        <>
+        <AnimatePresence>
             {isOpen && userId && (
-                <main
+                <motion.main
                     className="z-50 fixed inset-0 bg-black/50 flex items-center justify-center p-4"
                     onClick={(e) => {
                         if (e.target === e.currentTarget) {
                             setIsOpen(false);
                         }
                     }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
                 >
-                    <section className="bg-white rounded-2xl flex flex-col gap-3 max-w-[400px] w-full p-4 sm:py-8 sm:px-20">
+                    <motion.section
+                        className="relative bg-white rounded-2xl flex flex-col gap-3 max-w-[400px] w-full p-4 sm:py-8 sm:px-20"
+                        initial={{ scale: 0.5 }}
+                        animate={{ scale: 1 }}
+                        exit={{ scale: 0.5 }}
+                        transition={{ duration: 0.2 }}
+                    >
+                        <button
+                            className="absolute top-6 right-6"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            <X size={30} />
+                        </button>
+
                         <h2 className="text-xl text-center font-extrabold">
                             Skriv en anmeldelse
                         </h2>
@@ -115,9 +133,9 @@ export const ReviewModal = ({
                                 Send anmeldelse
                             </button>
                         </form>
-                    </section>
-                </main>
+                    </motion.section>
+                </motion.main>
             )}
-        </>
+        </AnimatePresence>
     );
 };

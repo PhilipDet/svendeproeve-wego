@@ -85,7 +85,7 @@ const LiftsPage = () => {
 
     return (
         <Container className="flex-row max-md:grid items-start">
-            <Filter />
+            <Filter goToPage={goToPage} />
 
             <section className="w-full flex flex-col gap-4">
                 {loading ? (
