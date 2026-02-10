@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MapPin, Target } from "lucide-react";
 import { useCities } from "@/hooks/useCities";
 import { useFilter } from "@/context/filterContext";
@@ -16,7 +16,9 @@ export const SearchInput = ({
     const { citiesDeparture, citiesDestination, loading } = useCities();
     const { locationFrom, locationTo } = useFilter();
 
-    const searchQuery = isLocationFrom ? locationFrom ?? "" : locationTo ?? "";
+    const searchQuery = isLocationFrom
+        ? (locationFrom ?? "")
+        : (locationTo ?? "");
 
     let cities: string[] = [];
     if (!loading) {
@@ -29,8 +31,9 @@ export const SearchInput = ({
                 city
                     .toLowerCase()
                     .includes(
-                        tempLocation?.toLowerCase() || searchQuery.toLowerCase()
-                    )
+                        tempLocation?.toLowerCase() ||
+                            searchQuery.toLowerCase(),
+                    ),
             )
             .reduce((acc: string[], city: string) => {
                 if (!acc.includes(city)) acc.push(city);

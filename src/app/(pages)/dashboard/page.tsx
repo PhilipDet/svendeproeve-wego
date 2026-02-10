@@ -14,7 +14,7 @@ import { deleteBooking } from "@/services/bookings";
 import { toast } from "react-toastify";
 
 const DashboardPage = () => {
-    const { user, loadingUser, logout } = useAuth();
+    const { user, loadingUser } = useAuth();
     const { bookings, loadingBookings } = useBookingsByUserId(user?.id || null);
 
     const [sortedBookings, setSortedBookings] = useState<BookingType[]>([]);
@@ -26,7 +26,7 @@ const DashboardPage = () => {
                     const dateA = a.createdAt ? a.createdAt.getTime() : 0;
                     const dateB = b.createdAt ? b.createdAt.getTime() : 0;
                     return dateB - dateA;
-                })
+                }),
             );
         }
     }, [bookings, loadingBookings]);
@@ -58,7 +58,7 @@ const DashboardPage = () => {
                                 <Clock size={20} className="text-gray-400" />
                                 {formatDate(
                                     booking.trip?.departureDate.toISOString() ||
-                                        "Ugyldig Dato"
+                                        "Ugyldig Dato",
                                 )}
                             </li>
 
@@ -169,14 +169,14 @@ const DashboardPage = () => {
                         <button
                             onClick={async () => {
                                 const response = await deleteBooking(
-                                    booking.id
+                                    booking.id,
                                 );
 
                                 if (response.status === 200) {
                                     setSortedBookings((prev: BookingType[]) =>
                                         prev.filter((book) => {
                                             book.id !== booking.id;
-                                        })
+                                        }),
                                     );
 
                                     toast.success(response.message);

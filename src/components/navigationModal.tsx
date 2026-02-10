@@ -1,6 +1,5 @@
 import { Home, Search, User, X } from "lucide-react";
 import Link from "next/link";
-import { Container } from "./container";
 import { useState } from "react";
 import { useAuth } from "@/context/authContext";
 import { SignInModalForm } from "./signInModal";
